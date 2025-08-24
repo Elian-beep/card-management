@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.ResourceAccessException;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -40,8 +41,8 @@ public class CardService {
 
     @Transactional
     public CardResponseDTO create(CardRequestDTO cardRequestDTO){
-        Double newLimitCard = 1000D;
-        Card card = new Card(cardRequestDTO.name(), newLimitCard, 0D);
+        BigDecimal newLimitCard = BigDecimal.valueOf(1000D);
+        Card card = new Card(cardRequestDTO.name(), newLimitCard);
         Card savedCard = cardRepository.save(card);
         return cardMapper.toDto(savedCard);
     }

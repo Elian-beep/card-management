@@ -1,10 +1,10 @@
 package com.cardmng.crud.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,16 +13,15 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    private Double limitCard;
-    private Double invoice;
-
+    private BigDecimal limitCard;
+    @OneToMany(mappedBy = "card")
+    private List<Management> managements = new ArrayList<>();
     public Card() {
     }
 
-    public Card(String name, Double limitCard, Double invoice) {
+    public Card(String name, BigDecimal limitCard) {
         this.name = name;
         this.limitCard = limitCard;
-        this.invoice = invoice;
     }
 
     public Long getId() {
@@ -41,31 +40,31 @@ public class Card {
         this.name = name;
     }
 
-    public Double getLimitCard() {
+    public BigDecimal getLimitCard() {
         return limitCard;
     }
 
-    public void setLimitCard(Double limitCard) {
+    public void setLimitCard(BigDecimal limitCard) {
         this.limitCard = limitCard;
     }
 
-    public Double getInvoice() {
-        return invoice;
+    public List<Management> getManagements() {
+        return managements;
     }
 
-    public void setInvoice(Double invoice) {
-        this.invoice = invoice;
+    public void setManagements(List<Management> managements) {
+        this.managements = managements;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Card card = (Card) o;
-        return Objects.equals(id, card.id) && Objects.equals(name, card.name) && Objects.equals(limitCard, card.limitCard) && Objects.equals(invoice, card.invoice);
+        return Objects.equals(id, card.id) && Objects.equals(name, card.name) && Objects.equals(limitCard, card.limitCard);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, limitCard, invoice);
+        return Objects.hash(id, name, limitCard);
     }
 }
