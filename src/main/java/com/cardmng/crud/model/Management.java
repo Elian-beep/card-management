@@ -11,12 +11,19 @@ public class Management {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false)
     private Integer month;
+    @Column(nullable = false)
     private Integer year;
+    @Column(nullable = false)
     private LocalDate closingDate;
+    @Column(nullable = false)
     private LocalDate expirationDate;
+    @Column(nullable = false)
     private BigDecimal totalAmount;
+    @Column(nullable = false)
     private BigDecimal amountPaid;
+    @Column(nullable = false)
     private ManagementStatus managementStatus;
     @ManyToOne
     @JoinColumn(name = "card_id")

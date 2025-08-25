@@ -1,6 +1,9 @@
 package com.cardmng.crud.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -12,7 +15,11 @@ public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false)
+    @NotBlank(message = "Le nom est obligatoire")
     private String name;
+    @Column(nullable = false)
+    @NotNull(message = "La limite de carte est obligatoire")
     private BigDecimal limitCard;
     @OneToMany(mappedBy = "card")
     private List<Management> managements = new ArrayList<>();
